@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('status');
+            $table->boolean('status')->default(1);
             $table->rememberToken();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
