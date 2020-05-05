@@ -32,7 +32,10 @@ Route::prefix('v1')->namespace('Api\V1')->group(function() {
 
         Route::post('/getUserByUsername', 'UsersController@getUserByUsername')->name('users.getUserByUserName');
 
-        Route::post('/register', 'UsersController@store')->name('users.store');
+        Route::post('/register', 'AuthController@register')->name('users.register');
+
+        Route::post('/login', 'AuthController@login')->name('users.login');
+        
     });
 
     // Categories
