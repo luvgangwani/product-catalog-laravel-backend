@@ -38,21 +38,6 @@ class AuthController extends Controller
             $newUser->password = $validUser['password'];
 
             if ($newUser->save()) {
-                // insert an entry in the users_roles table for the new user with the appropriate role selected
-
-                $newUserRole = new UsersRoles();
-
-                $newUserRole->user_id = $newUser->id;
-                $newUserRole->role_id = config('enums.role.USER'); // default role is user - TODO: Write a DB trigger instead
-
-                if ($newUserRole->save()) {
-
-                    $isDataSaved = true;
-
-                }
-            }
-
-            if ($isDataSaved) {
 
                 $accessToken = $newUser->createToken(env('PASSPORT_TOKEN'))->accessToken;
 
