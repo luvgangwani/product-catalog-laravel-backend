@@ -27,7 +27,7 @@ class ProductsController extends Controller
         ), 200);
     }
 
-    public function getProductByCategoryId(Request $request)
+    public function getProductsByCategoryId(Request $request)
     {
         return response()->json(array(
             'success' => true,
@@ -41,7 +41,7 @@ class ProductsController extends Controller
 
         $returnResponse = null;
 
-        $newProduct->admin_id = $request->admin_id;
+        $newProduct->admin_id = auth()->user()->id; // the admin who added the new product
         $newProduct->product_name = $request->product_name;
         $newProduct->product_description = $request->product_description;
         $newProduct->category_id = $request->category_id;
@@ -51,7 +51,8 @@ class ProductsController extends Controller
             if ($newProduct->save()) {
                 $returnResponse = response()->json(array(
                     'success' => true,
-                    'message' => 'New product added successfully!'
+                    'message' => 'New product added successfully!',
+                    'data' => $newProduct
                 ), 201);
             }
             else {
@@ -75,7 +76,6 @@ class ProductsController extends Controller
     {
         $returnResponse = null;
 
-        $product->admin_id = $request->admin_id;
         $product->product_name = $request->product_name;
         $product->product_description = $request->product_description;
         $product->category_id = $request->category_id;
@@ -85,7 +85,8 @@ class ProductsController extends Controller
             if ($product->save()) {
                 $returnResponse = response()->json(array(
                     'success' => true,
-                    'message' => 'Product details updated successfully!'
+                    'message' => 'Product details updated successfully!',
+                    'data' => $product
                 ), 201);
             }
             else {

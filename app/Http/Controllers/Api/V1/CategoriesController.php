@@ -38,16 +38,25 @@ class CategoriesController extends Controller
         try {
 
             if ($newCategory->save()) {
-                $returnResponse = response()->json(array('success' => true, 'message' =>'New category added successfully!'), 201); // 201, since we create a new resource
+                $returnResponse = response()->json(array(
+                    'success' => true,
+                    'message' =>'New category added successfully!',
+                    'data' => $newCategory
+                ), 201); // 201, since we create a new resource
             }
             else {
-                $returnResponse = response()->json(array('success' => false, 'message' =>'Error adding a new category!'), 500);
+                $returnResponse = response()->json(array(
+                    'success' => false,
+                    'message' =>'Error adding a new category!'
+                ), 400);
             }
 
             return $returnResponse;
 
         } catch (QueryException $e) {
-            return response()->json(array('success' => false, 'message' =>'Error adding a new category! Error: '.$e->getMessage()), 500);
+            return response()->json(array('success' => false,
+            'message' =>'Error adding a new category! Error: '.$e->getMessage()
+        ), 400);
         }
     }
 
@@ -62,16 +71,26 @@ class CategoriesController extends Controller
         try {
 
             if ($category->save()) {
-                $returnResponse = response()->json(array('success' => true, 'message' => 'Category details updated successfully!'), 200);
+                $returnResponse = response()->json(array(
+                    'success' => true,
+                    'message' => 'Category details updated successfully!',
+                    'data' => $category
+                ), 200);
             }
             else {
-                $returnResponse = response()->json(array('success' => true, 'message' => 'Error updating category details!'), 500);
+                $returnResponse = response()->json(array(
+                    'success' => true,
+                    'message' => 'Error updating category details!'
+                ), 400);
             }
 
             return $returnResponse;
 
         } catch(QueryException $e) {
-            return response()->json(array('success' => false, 'message' => 'Error updating category details! Error: '.$e->getMessage()));
+            return response()->json(array(
+                'success' => false,
+                'message' => 'Error updating category details! Error: '.$e->getMessage()
+            ), 400);
         }
 
     }
