@@ -14,3 +14,4 @@
 
 <u>Vue JS</u>
 <li>Install Vue in Laravel: https://stackoverflow.com/questions/58155900/vue-not-installing-in-laravel</li>
+<li>ES6 Syntax Support: https://laravel-mix.com/extensions/polyfill</li>
