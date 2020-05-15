@@ -9,9 +9,21 @@ require('./bootstrap');
 // window.Vue = require('vue');
 
 import Vue from 'vue';
+import VueRouter from 'vue-router';
+
+import routes from './routes';
+
 import Main from './components/Main';
 
 window.Vue = Vue;
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+	routes,
+	mode: 'history'
+});
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -34,5 +46,6 @@ window.Vue = Vue;
 
 const app = new Vue({
     el: '#app',
-    render: h => h(Main)
+    render: h => h(Main),
+    router
 });

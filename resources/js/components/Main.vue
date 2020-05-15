@@ -1,15 +1,28 @@
 <template>
 	<div class="container">
-		{{ title }}
+
+		<app-header></app-header>
+		<router-view></router-view>
+		<app-footer></app-footer>
+		
 	</div>
 </template>
 
 <script>
+
+	import Header from './Header';
+	import Footer from './Footer';
+
 	export default {
 		data() {
 			return {
-				title: 'This is the main component'
+				
 			}
+		},
+
+		components: {
+			'app-header': Header,
+			'app-footer': Footer
 		}
 	}
 </script>
