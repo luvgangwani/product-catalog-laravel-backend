@@ -1,5 +1,5 @@
 <template>
-	<footer class="footer fixed-bottom text-center">
+	<footer class="footer text-center">
 		&copy; E-Tron Product Catalog
 	</footer>
 </template>

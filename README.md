@@ -15,3 +15,9 @@
 <u>Vue JS</u>
 <li>Install Vue in Laravel: https://stackoverflow.com/questions/58155900/vue-not-installing-in-laravel</li>
 <li>ES6 Syntax Support: https://laravel-mix.com/extensions/polyfill</li>
+
+<u>Icon Credits</u>
+<li><div>Icons made by <a href="https://www.flaticon.com/authors/icongeek26" title="Icongeek26">Icongeek26</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></li>
+<li><div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></li>
+<li><div>Icons made by <a href="https://www.flaticon.com/authors/vitaly-gorbachev" title="Vitaly Gorbachev">Vitaly Gorbachev</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></li>
+<li><div>Icons made by <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div></li>

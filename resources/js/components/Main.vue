@@ -1,9 +1,9 @@
 <template>
-	<div class="container">
+	<div class="container-fluid remove-container-padding">
 
 		<app-header></app-header>
 		<router-view></router-view>
-		<app-footer></app-footer>
+		<!-- <app-footer></app-footer> -->
 		
 	</div>
 </template>
@@ -27,6 +27,14 @@
 	}
 </script>
 
-<style scoped>
+<style>
+
+body {
+	color: #ffffff;
+}
+
+.remove-container-padding {
+	padding: 0;
+}
 	
 </style>
