@@ -11,8 +11,9 @@
 				<li class="nav-item"><router-link to="/product" class="nav-link" exact>Product</router-link></li>
 			</ul>
 			<ul class="navbar-nav ml-auto" v-if="!logged_in">
-				<li class="nav-item"><router-link to="/login" class="nav-link" exact>Login</router-link></li>
-				<li class="nav-item"><router-link to="/register" class="nav-link" exact>Register</router-link></li>
+				<li class="nav-item"><router-link to="/" class="nav-link" exact>Home</router-link></li>
+				<li class="nav-item"><router-link to="/admin/login" class="nav-link" exact>Login</router-link></li>
+				<li class="nav-item"><router-link to="/admin/register" class="nav-link" exact>Register</router-link></li>
 			</ul>
 		</div>	
 	</nav>

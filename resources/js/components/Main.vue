@@ -29,10 +29,6 @@
 
 <style>
 
-body {
-	color: #ffffff;
-}
-
 .remove-container-padding {
 	padding: 0;
 }

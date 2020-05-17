@@ -4,11 +4,10 @@
 		<div class="h1 text-center py-5 strong">
 			Administrator Console
 		</div>
-		<p class="h5 text-center">Admins can use this console to:</p>
 
-		<div class="row mt-5 mx-auto">
-			<div class="col-md-2"></div>
-			<div class="col-md-4 col-sm-12 py-2">
+		<div class="row mx-auto">
+			<div class="col-md-3"></div>
+			<div class="col-md-3 col-sm-12 py-2">
 				<div class="card">
 					<img class="card-img-top" src="../../images/home-page-products.svg" />
 					<div class="card-body h5 text-center">
@@ -16,7 +15,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4 col-sm-12 py-2">
+			<div class="col-md-3 col-sm-12 py-2">
 				<div class="card">
 					<img src="../../images/home-page-categories.svg" class="card-img-top">
 					<div class="card-body h5 text-center">
@@ -24,11 +23,11 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2"></div>	
+			<div class="col-md-3"></div>	
 		</div>
 		<div class="row mx-auto">
-			<div class="col-md-2"></div>
-			<div class="col-md-4 col-sm-12 py-2">
+			<div class="col-md-3"></div>
+			<div class="col-md-3 col-sm-12 py-2">
 				<div class="card">
 					<img src="../../images/home-page-users.svg" class="card-img-top">
 					<div class="card-body h5 text-center">
@@ -36,7 +35,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4 col-sm-12 py-2">
+			<div class="col-md-3 col-sm-12 py-2">
 				<div class="card">
 					<img src="../../images/home-page-approve.svg" class="card-img-top">
 					<div class="card-body h5 text-center">
@@ -44,7 +43,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2"></div>
+			<div class="col-md-3"></div>
 		</div>
 
 	</div>
@@ -74,6 +73,7 @@
 	}
 
 	.cover-background {
+		color: #ffffff;
 		min-height: 100%;
 		background: #102c48;
 		-webkit-background-size: cover;
