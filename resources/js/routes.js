@@ -10,12 +10,12 @@ export default [
 		component: Home
 	},
 	{
-		path: '/admin/register',
-		component: Register
-	},
-	{
 		path: '/admin/login',
 		component: Login
+	},
+	{
+		path: '/user/register',
+		component: Register
 	},
 	{
 		path: '*',

@@ -17,9 +17,5 @@
 </script>
 
 <style scoped>
-
-	.card {
-		color: #102c48;
-	}
 	
 </style>
