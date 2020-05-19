@@ -8,40 +8,48 @@
 		<div class="row mx-auto">
 			<div class="col-md-3"></div>
 			<div class="col-md-3 col-sm-12 py-2">
-				<div class="card">
-					<img class="card-img-top" src="../../images/home-page-products.svg" />
-					<div class="card-body h5 text-center">
-						Add/Edit/Remove Products
+				<router-link to="/admin/products">
+					<div class="card">
+						<img class="card-img-top" src="../../images/home-page-products.svg" />
+						<div class="card-body h5 text-center">
+							Add/Edit/Remove Products
+						</div>
 					</div>
-				</div>
+				</router-link>
 			</div>
 			<div class="col-md-3 col-sm-12 py-2">
-				<div class="card">
-					<img src="../../images/home-page-categories.svg" class="card-img-top">
-					<div class="card-body h5 text-center">
-						Add/Edit/Remove Categories
+				<router-link to="/admin/categories">
+					<div class="card">
+						<img src="../../images/home-page-categories.svg" class="card-img-top">
+						<div class="card-body h5 text-center">
+							Add/Edit/Remove Categories
+						</div>
 					</div>
-				</div>
+				</router-link>
 			</div>
 			<div class="col-md-3"></div>	
 		</div>
 		<div class="row mx-auto">
 			<div class="col-md-3"></div>
 			<div class="col-md-3 col-sm-12 py-2">
-				<div class="card">
-					<img src="../../images/home-page-users.svg" class="card-img-top">
-					<div class="card-body h5 text-center">
-						Add/Edit/Remove Users
-					</div>
+				<router-link to="/admin/users">
+					<div class="card">
+						<img src="../../images/home-page-users.svg" class="card-img-top">
+						<div class="card-body h5 text-center">
+							Add/Edit/Remove Users
+						</div>
 				</div>
+				</router-link>
 			</div>
 			<div class="col-md-3 col-sm-12 py-2">
-				<div class="card">
-					<img src="../../images/home-page-approve.svg" class="card-img-top">
-					<div class="card-body h5 text-center">
-						Approve Users as Admins
+				<router-link to="/admin/users">
+					<div class="card">
+						<img src="../../images/home-page-approve.svg" class="card-img-top">
+						<div class="card-body h5 text-center">
+							Approve Users as Admins
+						</div>
 					</div>
-				</div>
+				</router-link>
 			</div>
 			<div class="col-md-3"></div>
 		</div>
@@ -80,6 +88,10 @@
 		-moz-background-size: cover;
 		-o-background-size: cover;
 		background-size: cover;
+	}
+
+	a {
+		text-decoration: none;
 	}
 
 </style>

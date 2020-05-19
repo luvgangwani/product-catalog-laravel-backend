@@ -8,6 +8,7 @@ use App\Users;
 use App\UsersRoles;
 use Hash;
 use Illuminate\Database\QueryException;
+use App\Http\Resources\Users as UsersResource;
 
 class AuthController extends Controller
 {
@@ -41,9 +42,12 @@ class AuthController extends Controller
 
                 $accessToken = $newUser->createToken(env('PASSPORT_TOKEN'))->accessToken;
 
+                $newUser['roles'] = $newUser->roles;
+
                 $returnResponse = response()->json(array(
                     'success' => true,
                     'message' => 'Registration successful!',
+                    'user' => new UsersResource($newUser),
                     'access_token' => $accessToken
                 ), 200);
             }
@@ -81,11 +85,13 @@ class AuthController extends Controller
             $user = auth()->user();
 
             $accessToken = $user->createToken(env('PASSPORT_TOKEN'))->accessToken;
+
+            $user['roles'] = $user->roles;
             
             $returnResponse = response()->json(array(
                 'success' => true,
                 'message' => 'Login successful!',
-                'user' => $user,
+                'user' => new UsersResource($user),
                 'access_token' => $accessToken
             ), 200);
         }

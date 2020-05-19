@@ -8,6 +8,8 @@ require('./bootstrap');
 
 // window.Vue = require('vue');
 
+localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : localStorage.setItem('accessToken', null);
+
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
@@ -23,7 +25,6 @@ const router = new VueRouter({
 	routes,
 	mode: 'history'
 });
-
 
 /**
  * The following block of code may be used to automatically register your
@@ -47,5 +48,5 @@ const router = new VueRouter({
 const app = new Vue({
     el: '#app',
     render: h => h(Main),
-    router
+    router,
 });
