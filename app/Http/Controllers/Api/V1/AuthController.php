@@ -99,7 +99,7 @@ class AuthController extends Controller
             $returnResponse = response()->json(array(
                 'success' => false,
                 'message' => 'Login unsuccessful. Please try again!'
-            ), 400);
+            ), 403);
         }
 
         return $returnResponse;

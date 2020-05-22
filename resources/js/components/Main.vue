@@ -29,6 +29,10 @@
 
 <style>
 
+.required::after {
+	content: '*';
+}
+
 .remove-container-padding {
 	padding: 0;
 }

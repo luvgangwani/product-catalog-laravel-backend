@@ -4,15 +4,15 @@
 			{{ pageTitle }}
 		</div>
 		<div class="form-group" slot="form-fields">
-			<label for="username">Username:</label>
-			<input type="text" name="username" class="form-control form-control-lg" placeholder="johndoe">
+			<label class="required" for="username">Username</label>
+			<input type="text" name="username" class="form-control form-control-lg" placeholder="johndoe" v-model="loginInfo.username">
 		</div>
 		<div class="form-group" slot="form-fields">
-			<label for="passowrd">Passoword:</label>
-			<input type="password" name="password" class="form-control form-control-lg">
+			<label class="required" for="passowrd">Passoword</label>
+			<input type="password" name="password" class="form-control form-control-lg" v-model="loginInfo.password">
 		</div>
 		<div class="text-center" slot="form-controls">
-			<div class="btn btn-primary btn-lg mt-4">Login</div>
+			<button type="submit" class="btn btn-primary btn-lg mt-4" v-on:click.prevent="login(loginInfo)">Login</button>
 		</div>
 	</auth-form-template>
 </template>
@@ -21,16 +21,31 @@
 
 	import AuthFormTemplate from '../../templates/AuthFormTemplate';
 
+	import { mapActions } from 'vuex';
+
 	export default {
 		data() {
 			return {
-				pageTitle: 'Admin Login'
+				pageTitle: 'Admin Login',
+				loginInfo: {
+					username: '',
+					password: ''
+				}
 			}
 		},
 
 		components: {
 			'auth-form-template': AuthFormTemplate
+		},
+
+		methods: {
+
+			...mapActions([
+				'login'
+			])
+
 		}
+
 	}
 </script>
 

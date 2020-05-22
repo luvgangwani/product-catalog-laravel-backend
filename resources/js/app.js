@@ -14,6 +14,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import routes from './routes';
+import { store } from './store/store';
 
 import Main from './components/Main';
 
@@ -46,6 +47,7 @@ const router = new VueRouter({
  */
 
 const app = new Vue({
+	store,
     el: '#app',
     render: h => h(Main),
     router,
