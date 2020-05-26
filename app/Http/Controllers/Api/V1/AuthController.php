@@ -87,13 +87,25 @@ class AuthController extends Controller
             $accessToken = $user->createToken(env('PASSPORT_TOKEN'))->accessToken;
 
             $user['roles'] = $user->roles;
-            
-            $returnResponse = response()->json(array(
+
+            // if a non-admin tries to login to the admin console
+
+            if (strpos($request->server('HTTP_REFERER'), 'admin') != false && $user['roles'][0]['id'] != 1) {
+                $returnResponse = response()->json(array(
+                    'success' => false,
+                    'message' => 'Unauthorized access!'
+                ), 403);
+            }
+            else {
+
+                $returnResponse = response()->json(array(
                 'success' => true,
                 'message' => 'Login successful!',
                 'user' => new UsersResource($user),
                 'access_token' => $accessToken
             ), 200);
+
+            }
         }
         else {
             $returnResponse = response()->json(array(

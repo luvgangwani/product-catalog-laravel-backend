@@ -12,35 +12,63 @@ export const store = new Vuex.Store({
 
 		isLoading: false,
 		user: null,
-		error: null
+		error: null,
+		successMessage: null,
 
+	},
+
+	getters: {
+		user: (state) => state.user,
+		error: (state) => state.error,
+		isLoading: (state) => state.isLoading,
+		successMessage: (state) => state.successMessage
 	},
 
 	mutations: { // mutations change the state but do not return any state values unlike getters where state values are returned
 
-		login: (state, { user }) => {
+		login: (state, { user, access_token, message }) => {
 
 			state.user = user;
+			state.error = null; // remove any error messages
 			state.isLoading = false; // stop loading
+			state.successMessage = message
+
+			localStorage.setItem('accessToken', access_token);
+		},
+
+		logout:(state) => {
+
+			localStorage.setItem('accessToken', null);
+
+			state.user = null;
+			state.error = null;
+			state.successMessage = null;
+			state.isLoading = false;
+
 		},
 
 		error: (state, { response }) => {
 
 			state.error = response.data.message;
 			state.isLoading = false; // stop loading
+			state.user = null;
+			state.successMessage = null;
+
+			if (localStorage.getItem('accessToken') != "null")
+				localStorage.setItem('accessToken', null);
 
 		}
 
 	},
 
 	actions: {
-		login: (context, payload) => {
+		login: async (context, payload) => {
 
 			context.state.isLoading = true;
 
 			const { username, password } = payload;
 
-			axios
+			await axios
 			.post(
 				`${API_BASE_URL}/users/login`,
 				{
@@ -59,6 +87,13 @@ export const store = new Vuex.Store({
 				context.commit('error', error);
 			});
 
+		},
+
+		logout: async (context) => {
+			
+			context.state.isLoading = true;
+
+			await context.commit('logout');
 		}
 	}
 })

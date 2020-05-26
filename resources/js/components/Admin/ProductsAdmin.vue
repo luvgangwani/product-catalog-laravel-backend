@@ -10,7 +10,8 @@
 
 		created() {
 
-			// this.validateAccessToken();
+			if(localStorage.getItem('accessToken') === 'null')
+				this.$router.push({ path: '/admin/login' })
 		},
 
 		data() {

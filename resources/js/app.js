@@ -12,6 +12,8 @@ localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : loca
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-default.css';
 
 import routes from './routes';
 import { store } from './store/store';
@@ -22,9 +24,13 @@ window.Vue = Vue;
 
 Vue.use(VueRouter);
 
+Vue.use(VueToast, {
+	position: 'bottom'
+});
+
 const router = new VueRouter({
 	routes,
-	mode: 'history'
+	mode: 'history',
 });
 
 /**
@@ -48,7 +54,7 @@ const router = new VueRouter({
 
 const app = new Vue({
 	store,
-    el: '#app',
-    render: h => h(Main),
-    router,
+	el: '#app',
+	render: h => h(Main),
+	router,
 });

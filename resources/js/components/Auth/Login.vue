@@ -12,7 +12,8 @@
 			<input type="password" name="password" class="form-control form-control-lg" v-model="loginInfo.password">
 		</div>
 		<div class="text-center" slot="form-controls">
-			<button type="submit" class="btn btn-primary btn-lg mt-4" v-on:click.prevent="login(loginInfo)">Login</button>
+			<button type="submit" class="btn btn-primary btn-lg mt-4" v-on:click.prevent="login()" v-if="!isLoading">Login</button>
+			<button type="submit" class="btn btn-primary btn-lg mt-4" v-on:click.prevent="login()" v-if="isLoading" disabled="true">Authenticating...</button>
 		</div>
 	</auth-form-template>
 </template>
@@ -21,7 +22,7 @@
 
 	import AuthFormTemplate from '../../templates/AuthFormTemplate';
 
-	import { mapActions } from 'vuex';
+	import { mapGetters } from 'vuex';
 
 	export default {
 		data() {
@@ -38,11 +39,37 @@
 			'auth-form-template': AuthFormTemplate
 		},
 
+		computed: {
+			...mapGetters([
+				'isLoading',
+				'user',
+				'error',
+				'successMessage'
+			])
+		},
+
 		methods: {
 
-			...mapActions([
-				'login'
-			])
+			login: async function () {
+
+				await this.$store.dispatch('login', this.loginInfo);
+				
+				if (this.user && this.error == null) {
+					
+					Vue.$toast.open({
+						message: this.successMessage,
+						type: 'success'
+					});
+
+					this.$router.push({ path: '/admin' });
+				}
+				else if (this.error != null) {
+					Vue.$toast.open({
+						message: this.error,
+						type: 'error'
+					});
+				}
+			}
 
 		}
 

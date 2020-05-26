@@ -9,7 +9,7 @@ import UsersAdmin from './components/Admin/UsersAdmin';
 export default [
 
 	{
-		path: '/',
+		path: '/admin',
 		component: Home
 	},
 	{
@@ -18,18 +18,15 @@ export default [
 	},
 	{
 		path: '/admin/products',
-		component: ProductsAdmin,
-		redirect: localStorage.getItem('accessToken') === "null" ? '/admin/login' : '/admin/products'
+		component: ProductsAdmin
 	},
 	{
 		path: '/admin/categories',
-		component: CategoriesAdmin,
-		redirect: localStorage.getItem('accessToken') === "null" ? '/admin/login' : '/admin/categories'
+		component: CategoriesAdmin
 	},
 	{
 		path: '/admin/users',
-		component: UsersAdmin,
-		redirect: localStorage.getItem('accessToken') === "null" ? '/admin/login' : '/admin/users'
+		component: UsersAdmin
 	},
 	{
 		path: '/user/register',
