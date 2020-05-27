@@ -27,11 +27,20 @@ class UsersController extends Controller
     public function getUserById(Request $request)
     {
 
-        return response()->json(array(
-            'success' => true,
-            'message' => '',
-            'data' => Users::find(auth()->user()->id)
-        ), 200);
+        try {
+            return response()->json(array(
+                        'success' => true,
+                        'message' => '',
+                        'data' => new UsersResource(Users::find(auth()->user()->id))
+                    ), 200);
+        } catch(QueryException $e) {
+
+            return response()->json(array(
+                        'success' => false,
+                        'message' => 'Error loading user data!',
+                    ), 400);
+
+        }
     }
 
     public function getUserByUsername(Request $request) {

@@ -5,14 +5,14 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="headerNavbar">
-			<ul class="navbar-nav ml-auto" v-if="user">
+			<ul class="navbar-nav ml-auto mr-5" v-if="user">
 				<li class="nav-item"><router-link to="/admin" class="nav-link" exact>Home</router-link></li>
-				<li class="nav-item"><router-link to="/admin/category" class="nav-link" exact>Category</router-link></li>
-				<li class="nav-item"><router-link to="/admin/product" class="nav-link" exact>Product</router-link></li>
+				<li class="nav-item"><router-link to="/admin/categories" class="nav-link" exact>Categories</router-link></li>
+				<li class="nav-item"><router-link to="/admin/products" class="nav-link" exact>Products</router-link></li>
 				<li class="nav-item dropdown">
 					<a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hi {{ user.first_name }}</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" to="#" v-on:click.prevent="logout()">Logout</a>
+						<a class="dropdown-item" href="#" v-on:click="logout()">Logout</a>
 					</div>
 				</li>
 			</ul>
@@ -37,7 +37,7 @@
 		computed: {
 
 			...mapGetters([
-				'user'
+				'user',
 			])
 
 		},
@@ -58,8 +58,14 @@
 	background-color: #102c48e0;
 }
 
-a {
-	color: #ffffff;
+.nav-link {
+	color: #ffffff !important;
+}
+
+.nav-link:hover {
+	background-color: #102c48e0 !important;
+	border-radius: 7px;
+	color: #ffffff !important;
 }
 
 .router-link-active {
@@ -67,4 +73,15 @@ a {
 	color: #102c48e0 !important;
 	border-radius: 7px;
 }
+
+.dropdown-menu {
+	background-color: #2c445e;
+	border: 1px solid #ffffff;
+}
+
+.dropdown-menu .dropdown-item {
+	background-color: #2c445e;
+	color: #ffffff !important;
+}
+
 </style>

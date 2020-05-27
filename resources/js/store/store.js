@@ -36,6 +36,13 @@ export const store = new Vuex.Store({
 			localStorage.setItem('accessToken', access_token);
 		},
 
+		getUserByUserId: (state, { data, message }) => {
+			state.user = data;
+			state.error = null;
+			state.isLoading = false;
+			state.successMessage = message
+		},
+
 		logout:(state) => {
 
 			localStorage.setItem('accessToken', null);
@@ -86,6 +93,31 @@ export const store = new Vuex.Store({
 			.catch(error => {
 				context.commit('error', error);
 			});
+
+		},
+
+		getUserByUserId: async (context) => {
+
+			context.state.isLoading = true;
+
+			await axios
+					.post(
+						`${API_BASE_URL}/users/getUserById`,
+						{},
+						{
+							headers: {
+								'Accept': 'application/json',
+								'Authorization': `Bearer ${localStorage.getItem('accessToken')}` 
+							}
+						}
+					)
+					.then(response => {
+						console.log(response);
+						context.commit('getUserByUserId', response.data);
+					})
+					.catch(error => {
+						context.commit('error', error);
+					})
 
 		},
 

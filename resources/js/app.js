@@ -8,7 +8,7 @@ require('./bootstrap');
 
 // window.Vue = require('vue');
 
-localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : localStorage.setItem('accessToken', null);
+// localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : localStorage.setItem('accessToken', null);
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
