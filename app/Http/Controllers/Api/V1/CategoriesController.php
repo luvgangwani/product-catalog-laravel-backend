@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use Illuminate\Http\Request;
 use App\Categories;
-use App\Http\Resources\Categories as CategoriesResources;
+use App\Http\Resources\Categories as CategoriesResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 
@@ -13,10 +13,26 @@ class CategoriesController extends Controller
     //
 
     public function index() {
-        return response()->json(array(
-            'success' => true,
-            'data' => Categories::all()
-        ), 200);
+
+        try {
+            $returnCategories = [];
+
+            foreach (Categories::all() as $category) {
+                array_push($returnCategories, new CategoriesResource($category));
+            }
+            return response()->json(array(
+                'success' => true,
+                'data' => $returnCategories
+            ), 200);
+        }
+        catch (QueryException $e) {
+            return response()->json(array(
+                'success' => false,
+                'message' => 'Error loading all categories! Error: '.$e->getMessage()
+            ), 400);
+        }
+
+        
     }
 
     public function getCategoryById(Request $request) {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use App\Products;
+use App\Http\Resources\Products as ProductsResource;
 
 class ProductsController extends Controller
 {
@@ -13,10 +14,26 @@ class ProductsController extends Controller
 
     public function index()
     {
-        return response()->json(array(
-            'success' => true,
-            'data' => Products::all()
-        ), 200);
+
+        $returnProducts = [];
+        try {
+
+            foreach (Products::all() as $product) {
+                array_push($returnProducts, new ProductsResource($product));
+            }
+
+            return response()->json(array(
+                'success' => true,
+                'data' => $returnProducts
+            ), 200);
+        }
+        catch(QueryException $e) {
+            return response()->json(array(
+                'success' => false,
+                'message' => 'Error loading all products! Error: '.$e->getMessage()
+            ), 400);
+        }
+
     }
 
     public function getProductById(Request $request)

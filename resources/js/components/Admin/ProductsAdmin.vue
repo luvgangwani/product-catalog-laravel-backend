@@ -9,7 +9,7 @@
 		<!-- Table Body -->
 		<tr v-bind:key="index" v-for="({ id, product_name, product_price }, index) in products" slot="list-table-body">
 			<td>{{ product_name }}</td>
-			<td>{{ product_price }}</td>
+			<td>${{ product_price }}</td>
 			<td>
 				<router-link v-bind:to="`/products/${id}`" class="px-2"><img src="../../../images/list-edit.svg"></router-link>
 				<router-link v-bind:to="`/products/${id}`" class="px-2"><img src="../../../images/list-delete.svg"></router-link>

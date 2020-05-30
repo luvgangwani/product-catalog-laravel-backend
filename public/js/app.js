@@ -43583,7 +43583,7 @@ var render = function() {
           [
             _c("td", [_vm._v(_vm._s(product_name))]),
             _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(product_price))]),
+            _c("td", [_vm._v("$" + _vm._s(product_price))]),
             _vm._v(" "),
             _c(
               "td",
