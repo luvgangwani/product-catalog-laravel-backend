@@ -12,6 +12,8 @@ export const store = new Vuex.Store({
 
 		isLoading: false,
 		user: null,
+		categories: null,
+		products: null,
 		error: null,
 		successMessage: null,
 
@@ -19,6 +21,8 @@ export const store = new Vuex.Store({
 
 	getters: {
 		user: (state) => state.user,
+		categories: (state) => state.categories,
+		products: (state) => state.products,
 		error: (state) => state.error,
 		isLoading: (state) => state.isLoading,
 		successMessage: (state) => state.successMessage
@@ -52,6 +56,18 @@ export const store = new Vuex.Store({
 			state.successMessage = null;
 			state.isLoading = false;
 
+		},
+
+		getAllCategories: (state, { data }) => {
+
+			state.categories = data;
+			state.isLoading = false;
+
+		},
+
+		getAllProducts: (state, { data }) => {
+			state.products = data;
+			state.isLoading = false;
 		},
 
 		error: (state, { response }) => {
@@ -112,13 +128,53 @@ export const store = new Vuex.Store({
 						}
 					)
 					.then(response => {
-						console.log(response);
 						context.commit('getUserByUserId', response.data);
 					})
 					.catch(error => {
 						context.commit('error', error);
 					})
 
+		},
+
+		getAllCategories: async (context) => {
+
+			context.state.isLoading = true;
+
+			await axios
+					.get(
+						`${API_BASE_URL}/categories`,
+						{
+							headers: {
+								'Accept': 'application/json'
+							}
+						}
+					)
+					.then(response => {
+						context.commit('getAllCategories', response.data);
+					})
+					.catch(error => {
+						context.commit('error', error);
+					})
+		},
+
+		getAllProducts: async (context) => {
+			context.state.isLoading = true;
+
+			await axios
+					.get(
+						`${API_BASE_URL}/products`,
+						{
+							headers: {
+								'Accept': 'application/json'
+							}
+						}
+					)
+					.then(response => {
+						context.commit('getAllProducts', response.data);
+					})
+					.catch(error => {
+						context.commit('error', error)
+					})
 		},
 
 		logout: async (context) => {
