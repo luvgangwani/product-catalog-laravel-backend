@@ -1985,6 +1985,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2076,6 +2080,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -2789,6 +2797,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -43432,6 +43441,24 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c(
+        "router-link",
+        {
+          staticClass: "float-right p-2",
+          attrs: { slot: "list-template-add", to: "/admin/categories" },
+          slot: "list-template-add"
+        },
+        [
+          _c("img", {
+            staticClass: "img-fluid",
+            attrs: {
+              src: __webpack_require__(/*! ../../../images/list-template-home-plus-icon.svg */ "./resources/images/list-template-home-plus-icon.svg"),
+              alt: "Add category"
+            }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
         "th",
         {
           attrs: { slot: "list-table-headers", scope: "col" },
@@ -43541,6 +43568,24 @@ var render = function() {
       _c("div", { attrs: { slot: "list-header" }, slot: "list-header" }, [
         _vm._v("Products Dashboard")
       ]),
+      _vm._v(" "),
+      _c(
+        "router-link",
+        {
+          staticClass: "float-right p-2",
+          attrs: { slot: "list-template-add", to: "/admin/products" },
+          slot: "list-template-add"
+        },
+        [
+          _c("img", {
+            staticClass: "img-fluid",
+            attrs: {
+              src: __webpack_require__(/*! ../../../images/list-template-home-plus-icon.svg */ "./resources/images/list-template-home-plus-icon.svg"),
+              alt: "Add product"
+            }
+          })
+        ]
+      ),
       _vm._v(" "),
       _c(
         "th",
@@ -44287,23 +44332,29 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "h3 mt-5" }, [_vm._t("list-header")], 2),
-    _vm._v(" "),
-    _vm.isLoading
-      ? _c("div", { staticClass: "h5 mt-5" }, [_vm._v("Loading...")])
-      : _vm._e(),
-    _vm._v(" "),
-    !_vm.isLoading
-      ? _c("table", { staticClass: "table mt-5" }, [
-          _c("thead", { staticClass: "thead-dark" }, [
-            _c("tr", [_vm._t("list-table-headers")], 2)
-          ]),
-          _vm._v(" "),
-          _c("tbody", [_vm._t("list-table-body")], 2)
-        ])
-      : _vm._e()
-  ])
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "h3 mt-5" }, [_vm._t("list-header")], 2),
+      _vm._v(" "),
+      _vm.isLoading
+        ? _c("div", { staticClass: "h5 mt-5" }, [_vm._v("Loading...")])
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.isLoading ? _vm._t("list-template-add") : _vm._e(),
+      _vm._v(" "),
+      !_vm.isLoading
+        ? _c("table", { staticClass: "table" }, [
+            _c("thead", { staticClass: "thead-dark" }, [
+              _c("tr", [_vm._t("list-table-headers")], 2)
+            ]),
+            _vm._v(" "),
+            _c("tbody", [_vm._t("list-table-body")], 2)
+          ])
+        : _vm._e()
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -60633,6 +60684,17 @@ module.exports = "/images/list-delete.svg?237c767cfb8589be766becaa884162dc";
 /***/ (function(module, exports) {
 
 module.exports = "/images/list-edit.svg?31a57cb3cb2e50d99e206ddeefa8cc1a";
+
+/***/ }),
+
+/***/ "./resources/images/list-template-home-plus-icon.svg":
+/*!***********************************************************!*\
+  !*** ./resources/images/list-template-home-plus-icon.svg ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/list-template-home-plus-icon.svg?374496ef840f0bb13aaf16dd75f1d9a1";
 
 /***/ }),
 

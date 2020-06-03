@@ -1,6 +1,10 @@
 <template>
 	<list-template>
 		<div slot="list-header">Products Dashboard</div>
+		<!-- Add Icon -->
+		<router-link to="/admin/products" class="float-right p-2" slot="list-template-add">
+			<img src="../../../images/list-template-home-plus-icon.svg" class="img-fluid" alt="Add product">
+		</router-link>
 		<!-- Table Column Headers -->
 		<th scope="col" slot="list-table-headers">Product Name</th>
 		<th scope="col" slot="list-table-headers">Product Price</th>

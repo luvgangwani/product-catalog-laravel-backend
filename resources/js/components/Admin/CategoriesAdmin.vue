@@ -1,6 +1,10 @@
 <template>
 	<list-template>
 		<div slot="list-header">Categories Dashboard</div>
+		<!-- Add Icon -->
+		<router-link to="/admin/categories" class="float-right p-2" slot="list-template-add">
+			<img src="../../../images/list-template-home-plus-icon.svg" class="img-fluid" alt="Add category">
+		</router-link>
 		<!-- Table Column Headers -->
 		<th scope="col" slot="list-table-headers">Category Name</th>
 		<th scope="col" slot="list-table-headers">Category URL</th>

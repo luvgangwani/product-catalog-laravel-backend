@@ -2,7 +2,8 @@
 	<div>
 		<div class="h3 mt-5"><slot name="list-header"></slot></div>
 		<div class="h5 mt-5" v-if="isLoading">Loading...</div>
-		<table class="table mt-5" v-if="!isLoading">
+		<slot name="list-template-add" v-if="!isLoading"></slot>
+		<table class="table" v-if="!isLoading">
 			<thead class="thead-dark">
 				<tr>
 					<slot name="list-table-headers"></slot>
