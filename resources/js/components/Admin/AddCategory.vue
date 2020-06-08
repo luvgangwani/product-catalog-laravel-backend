@@ -9,7 +9,7 @@
                 </div>
                 <div class="form-group">
                     <label for="category_url" class="required">Category URL</label>
-                    <input type="text" class="form-control" v-bind:value="category.category_name.toLowerCase().replace(' ', '-')">
+                    <input type="text" class="form-control" v-model="category.category_url">
                 </div>
                 <button type="submit" class="btn btn-primary btn-lg mt-4">Submit</button>
                 <button type="submit" class="btn btn-primary btn-lg mt-4 ml-2" v-on:click.prevent="closeModal()">Close</button>
@@ -31,8 +31,19 @@ export default {
     },
 
     methods: {
-        closeModal: function() {
+
+        closeModal() {
             this.$modal.hide('modal-add-category');
+        }
+    },
+
+    watch: {
+        category: {
+            handler() {
+                console.log("Watching...")
+                this.category.category_url = this.category.category_name.toLowerCase().replace(/ /g, '-')
+            },
+            deep: true
         }
     },
 }
