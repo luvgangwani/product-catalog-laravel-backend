@@ -2,7 +2,7 @@
 	<list-template>
 		<div slot="list-header">Categories Dashboard</div>
 		<!-- Add Icon -->
-		<router-link to="/admin/categories" class="float-right p-2" slot="list-template-add">
+		<router-link to="#" class="float-right p-2" slot="list-template-add" v-on:click.native="openAddCategoryModal()">
 			<img src="../../../images/list-template-home-plus-icon.svg" class="img-fluid" alt="Add category">
 		</router-link>
 		<!-- Table Column Headers -->
@@ -18,6 +18,7 @@
 				<router-link v-bind:to="`/categories/${category_url}`" class="px-2"><img src="../../../images/list-delete.svg"></router-link>
 			</td>
 		</tr>
+		<add-category slot="modal"></add-category>
 	</list-template>
 </template>
 
@@ -25,6 +26,7 @@
 
 	import { mapGetters } from 'vuex';
 	import ListTemplate from '../../templates/ListTemplate';
+	import AddCategory from './AddCategory';
 
 	export default {
 
@@ -35,7 +37,22 @@
 		},
 
 		components: {
-			'list-template': ListTemplate
+			'list-template': ListTemplate,
+			'add-category': AddCategory
+		},
+
+		methods: {
+			openAddCategoryModal: function() {
+				this.$modal.show(
+					'modal-add-category',
+					{
+						text: 'Hello'
+					},
+					{
+						draggable: true,
+					},
+				);
+			}
 		},
 
 		computed: {

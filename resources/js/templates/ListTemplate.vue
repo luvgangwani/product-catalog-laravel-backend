@@ -13,7 +13,7 @@
 				<slot name="list-table-body"></slot>
 			</tbody>
 		</table>
-
+		<slot name="modal"></slot>
 	</div>
 </template>
 

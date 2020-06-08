@@ -13,6 +13,7 @@ require('./bootstrap');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueToast from 'vue-toast-notification';
+import VModal from 'vue-js-modal';
 import 'vue-toast-notification/dist/theme-default.css';
 
 import routes from './routes';
@@ -23,6 +24,11 @@ import Main from './components/Main';
 window.Vue = Vue;
 
 Vue.use(VueRouter);
+
+Vue.use(VModal, {
+	dynamic: true,
+	injectModalsContainer: true
+});
 
 Vue.use(VueToast, {
 	position: 'bottom'
