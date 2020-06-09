@@ -11,7 +11,8 @@
                     <label for="category_url" class="required">Category URL</label>
                     <input type="text" class="form-control" v-model="category.category_url">
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg mt-4">Submit</button>
+                <button type="submit" class="btn btn-primary btn-lg mt-4" v-on:click.prevent="addCategory()" v-if="!isLoading">Submit</button>
+                <button type="submit" class="btn btn-primary btn-lg mt-4" v-if="isLoading" disabled="true">Adding...</button>
                 <button type="submit" class="btn btn-primary btn-lg mt-4 ml-2" v-on:click.prevent="closeModal()">Close</button>
             </form>
         </div>
@@ -19,6 +20,9 @@
 </template>
 
 <script>
+
+import { mapGetters } from 'vuex';
+
 export default {
     data() {
         return {
@@ -34,13 +38,46 @@ export default {
 
         closeModal() {
             this.$modal.hide('modal-add-category');
+        },
+
+        async addCategory() {
+            await this.$store.dispatch('addCategory', this.category);
+
+            if (this.error !== null) {
+                Vue.$toast.open({
+                    message: this.error,
+                    type: 'error'
+                });
+            }
+
+            if (this.successMessage !== null) {
+                Vue.$toast.open({
+                    message: this.successMessage,
+                    type: 'success'
+                });
+
+                this.category = {
+                    category_name: '',
+                    category_url: '',
+                    parent_id: 0
+                }
+
+                this.$modal.hide('modal-add-category');
+            }
         }
+    },
+
+    computed: {
+        ...mapGetters([
+            'isLoading',
+            'successMessage',
+            'error'
+        ])
     },
 
     watch: {
         category: {
             handler() {
-                console.log("Watching...")
                 this.category.category_url = this.category.category_name.toLowerCase().replace(/ /g, '-')
             },
             deep: true

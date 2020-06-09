@@ -46,11 +46,18 @@ class CategoriesController extends Controller
 
         $returnResponse = null;
 
+        $validCategory = $request->validate([
+            'category_name' => 'required|unique:categories',
+            'category_url' => 'required|unique:categories',
+            'parent_id' => 'required'
+        ]);
+
         $newCategory = new Categories();
 
-        $newCategory->parent_id = $request->parent_id;
-        $newCategory->category_name = $request->category_name;
-        $newCategory->category_url = $request->category_url;
+        $newCategory->parent_id = $validCategory["parent_id"];
+        $newCategory->category_name = $validCategory["category_name"];
+        $newCategory->category_url = $validCategory["category_url"];
+
         try {
 
             if ($newCategory->save()) {

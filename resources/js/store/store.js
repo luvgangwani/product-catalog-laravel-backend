@@ -47,15 +47,11 @@ export const store = new Vuex.Store({
 			state.successMessage = message
 		},
 
-		logout:(state) => {
-
-			localStorage.setItem('accessToken', null);
-
-			state.user = null;
-			state.error = null;
-			state.successMessage = null;
+		addCategory: (state, { data, message }) => {
 			state.isLoading = false;
-
+			state.categories = [...state.categories, data]
+			state.successMessage = message
+			state.error = null;
 		},
 
 		getAllCategories: (state, { data }) => {
@@ -70,6 +66,17 @@ export const store = new Vuex.Store({
 			state.isLoading = false;
 		},
 
+		logout:(state) => {
+
+			localStorage.setItem('accessToken', null);
+
+			state.user = null;
+			state.error = null;
+			state.successMessage = null;
+			state.isLoading = false;
+
+		},
+
 		error: (state, { response }) => {
 
 			state.error = response.data.message;
@@ -77,8 +84,8 @@ export const store = new Vuex.Store({
 			state.user = null;
 			state.successMessage = null;
 
-			if (localStorage.getItem('accessToken') != "null")
-				localStorage.setItem('accessToken', null);
+			/* if (localStorage.getItem('accessToken') != "null")
+				localStorage.setItem('accessToken', null); */
 
 		}
 
@@ -175,6 +182,34 @@ export const store = new Vuex.Store({
 					.catch(error => {
 						context.commit('error', error)
 					})
+		},
+
+		addCategory: async (context, { category_name, category_url, parent_id}) => {
+
+			context.state.isLoading = true;
+
+			await axios
+					.post(
+						`${API_BASE_URL}/categories/store`,
+						{
+							category_name,
+							category_url,
+							parent_id
+						},
+						{
+							headers: {
+								'Accept' : 'application/json',
+								'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+							}
+						}
+					)
+					.then(response => {
+						context.commit('addCategory', response.data)
+					})
+					.catch(error => {
+						context.commit('error', error)
+					});
+
 		},
 
 		logout: async (context) => {
