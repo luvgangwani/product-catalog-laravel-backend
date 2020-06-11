@@ -53,6 +53,7 @@ Route::prefix('v1')->namespace('Api\V1')->group(function() {
     Route::prefix('categories')->group(function() {
 
         Route::get('/', 'CategoriesController@index')
+        ->middleware('auth:api', 'check.user.role:'.config('enums.role.ADMIN'))
         ->name('categories.index');
 
         Route::post('/getCategoryById', 'CategoriesController@getCategoryById')

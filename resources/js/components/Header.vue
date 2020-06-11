@@ -1,6 +1,6 @@
 <template>
 	<nav class="navbar navbar-expand-md navbar-dark nav-bg">
-		<a href="/admin" class="navbar-brand">E-Tron Product Catalog</a>
+		<a class="navbar-brand" v-on:click.prevent="goHome()">E-Tron Product Catalog</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headerNavbar" aria-controls="headerNavbar" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -43,6 +43,11 @@
 		},
 
 		methods: {
+
+			goHome: function() {
+				this.$router.push({ path: '/admin'})
+			},
+
 			logout: async function() {
 				await this.$store.dispatch('logout');
 
@@ -60,6 +65,10 @@
 
 .nav-link {
 	color: #ffffff !important;
+}
+
+.navbar-brand {
+	cursor: pointer;
 }
 
 .nav-link:hover {

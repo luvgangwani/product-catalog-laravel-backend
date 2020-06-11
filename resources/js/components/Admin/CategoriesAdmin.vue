@@ -14,11 +14,12 @@
 			<td>{{ category_name }}</td>
 			<td>{{ category_url }}</td>
 			<td>
-				<router-link v-bind:to="`/categories/${category_url}`" class="px-2"><img src="../../../images/list-edit.svg"></router-link>
-				<router-link v-bind:to="`/categories/${category_url}`" class="px-2"><img src="../../../images/list-delete.svg"></router-link>
+				<router-link v-bind:to="`#`" class="px-2" v-on:click.native="openEditCategoryModal(id)"><img src="../../../images/list-edit.svg" alt="Edit"></router-link>
+				<router-link v-bind:to="`#`" class="px-2"><img src="../../../images/list-delete.svg" alt="Delete"></router-link>
 			</td>
 		</tr>
 		<add-category slot="modal"></add-category>
+		<edit-category slot="modal"></edit-category>
 	</list-template>
 </template>
 
@@ -27,6 +28,7 @@
 	import { mapGetters } from 'vuex';
 	import ListTemplate from '../../templates/ListTemplate';
 	import AddCategory from './AddCategory';
+	import EditCategory from './EditCategory';
 
 	export default {
 
@@ -38,20 +40,21 @@
 
 		components: {
 			'list-template': ListTemplate,
-			'add-category': AddCategory
+			'add-category': AddCategory,
+			'edit-category': EditCategory
 		},
 
 		methods: {
-			openAddCategoryModal: function() {
-				this.$modal.show(
-					'modal-add-category',
-					{
-						text: 'Hello'
-					},
-					{
-						draggable: true,
-					},
-				);
+			openAddCategoryModal() {
+				this.$modal.show('modal-add-category');
+			},
+
+			openEditCategoryModal(id) {
+
+				this.$modal.show('modal-edit-category', {
+					id
+				})
+
 			}
 		},
 
@@ -64,7 +67,9 @@
 
 		async created() {
 
-			if(localStorage.getItem('accessToken') === 'null')
+			const accessToken = localStorage.getItem('accessToken');
+
+			if(accessToken == null || typeof accessToken == 'undefined')
 				this.$router.push({ path: '/admin/login' })
 
 			await this.$store.dispatch('getAllCategories');

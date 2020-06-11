@@ -13,6 +13,7 @@ export const store = new Vuex.Store({
 		isLoading: false,
 		user: null,
 		categories: null,
+		category: null,
 		products: null,
 		error: null,
 		successMessage: null,
@@ -22,6 +23,7 @@ export const store = new Vuex.Store({
 	getters: {
 		user: (state) => state.user,
 		categories: (state) => state.categories,
+		category: (state) => state.category,
 		products: (state) => state.products,
 		error: (state) => state.error,
 		isLoading: (state) => state.isLoading,
@@ -58,7 +60,14 @@ export const store = new Vuex.Store({
 
 			state.categories = data;
 			state.isLoading = false;
+			state.error = null;
 
+		},
+
+		getCategoryById: (state, { data }) => {
+			state.category = data;
+			state.isLoading = false;
+			state.error = null;
 		},
 
 		getAllProducts: (state, { data }) => {
@@ -152,7 +161,8 @@ export const store = new Vuex.Store({
 						`${API_BASE_URL}/categories`,
 						{
 							headers: {
-								'Accept': 'application/json'
+								'Accept': 'application/json',
+								'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
 							}
 						}
 					)
@@ -209,6 +219,30 @@ export const store = new Vuex.Store({
 					.catch(error => {
 						context.commit('error', error)
 					});
+
+		},
+
+		getCategoryById: async (context, payload) => {
+			// context.state.isLoading = true; 
+			await axios
+					.post(
+						`${API_BASE_URL}/categories/getCategoryById`,
+						{
+							id: payload
+						}, 
+						{
+							headers: {
+								'Accept': 'application/json',
+								'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+							}
+						}
+					)
+					.then(response => {
+						context.commit('getCategoryById', response.data)
+					})
+					.catch(error => {
+						context.commit('error', error)
+					})
 
 		},
 

@@ -31,7 +31,9 @@
 
 		async created() {
 
-			if(localStorage.getItem('accessToken') === 'null')
+			const accessToken = localStorage.getItem('accessToken');
+
+			if( accessToken == null || typeof accessToken == 'undefined')
 				this.$router.push({ path: '/admin/login' })
 
 			await this.$store.dispatch('getAllProducts');
