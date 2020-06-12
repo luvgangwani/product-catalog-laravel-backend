@@ -41,7 +41,7 @@
 		},
 
 		created() {
-			if (localStorage.getItem('accessToken') !== "null") {
+			if (localStorage.getItem('accessToken')) {
 				this.getUserByUserId();
 
 				if (this.error != null) {

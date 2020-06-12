@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import axios from 'axios';
+import _ from 'lodash';
 
 Vue.use(Vuex);
 
@@ -22,7 +23,7 @@ export const store = new Vuex.Store({
 
 	getters: {
 		user: (state) => state.user,
-		categories: (state) => state.categories,
+		categories: (state) => _.orderBy(state.categories, [ eachCategory => eachCategory.category_name ], ['asc']),
 		category: (state) => state.category,
 		products: (state) => state.products,
 		error: (state) => state.error,
@@ -53,6 +54,22 @@ export const store = new Vuex.Store({
 			state.isLoading = false;
 			state.categories = [...state.categories, data]
 			state.successMessage = message
+			state.error = null;
+		},
+
+		editCategory: (state, { data, message }) => {
+			state.category = data;
+
+
+			state.categories = _.orderBy(
+				[
+					...state.categories.filter(eachCategory => eachCategory.id != data.id), data
+				]
+				, [ eachCategory => eachCategory.category_name ]
+				, ['asc']
+			);
+
+			state.successMessage = message;
 			state.error = null;
 		},
 
@@ -220,6 +237,30 @@ export const store = new Vuex.Store({
 						context.commit('error', error)
 					});
 
+		},
+
+		editCategory: async (context, { id, category_name, category_url, parent_id }) => {
+			await axios
+					.put(
+							`${API_BASE_URL}/categories/update/${id}`,
+							{
+								category_name,
+								category_url,
+								parent_id
+							},
+							{
+								headers: {
+									'Accept': 'application/json',
+									'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+								}
+							}
+						)
+					.then(response => {
+						context.commit('editCategory', response.data)
+					})
+					.catch(error => {
+						context.commit('error', error)
+					})
 		},
 
 		getCategoryById: async (context, payload) => {

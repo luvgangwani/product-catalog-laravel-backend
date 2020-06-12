@@ -36,8 +36,23 @@ export default {
         }
     },
     methods: {
-        closeModal() {
-            this.$modal.hide('modal-edit-category');
+
+        async editCategory() {
+            await this.$store.dispatch('editCategory', this.singleCategory)
+
+            if (this.successMessage != null) {
+                Vue.$toast.open({
+                    message: this.successMessage,
+                    type: 'success'
+                });
+                this.closeModal();
+            }
+
+            if (this.error != null)
+                Vue.$toast.open({
+                    message: this.error,
+                    type: 'error'
+                });
         },
 
         async beforeOpen(event) {
@@ -46,12 +61,18 @@ export default {
             if (this.category != null) {
                 this.singleCategory = this.category
             }
+        },
+
+        closeModal() {
+            this.$modal.hide('modal-edit-category');
         }
     },
     computed: {
         ...mapGetters([
             'isLoading',
-            'category'
+            'category',
+            'successMessage',
+            'error'
         ])
     },
     watch: {

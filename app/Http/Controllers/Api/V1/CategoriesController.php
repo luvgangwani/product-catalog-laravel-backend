@@ -64,7 +64,7 @@ class CategoriesController extends Controller
                 $returnResponse = response()->json(array(
                     'success' => true,
                     'message' =>'New category added successfully!',
-                    'data' => $newCategory
+                    'data' => new CategoriesResource($newCategory)
                 ), 201); // 201, since we create a new resource
             }
             else {
@@ -87,9 +87,15 @@ class CategoriesController extends Controller
 
         $returnResponse = null;
 
-        $category->parent_id = $request->parent_id;
-        $category->category_name = $request->category_name;
-        $category->category_url = $request->category_url;
+        $validCategory = $request->validate([
+            'category_name' => 'required|unique:categories',
+            'category_url' => 'required|unique:categories',
+            'parent_id' => 'required'
+        ]);
+
+        $category->parent_id = $validCategory["parent_id"];
+        $category->category_name = $validCategory["category_name"];
+        $category->category_url = $validCategory["category_url"];
 
         try {
 
@@ -97,7 +103,7 @@ class CategoriesController extends Controller
                 $returnResponse = response()->json(array(
                     'success' => true,
                     'message' => 'Category details updated successfully!',
-                    'data' => $category
+                    'data' => new CategoriesResource($category)
                 ), 200);
             }
             else {
