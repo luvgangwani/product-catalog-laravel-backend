@@ -15,11 +15,12 @@
 			<td>{{ product_name }}</td>
 			<td>${{ product_price }}</td>
 			<td>
-				<router-link v-bind:to="`/products/${id}`" class="px-2"><img src="../../../images/list-edit.svg"></router-link>
-				<router-link v-bind:to="`/products/${id}`" class="px-2"><img src="../../../images/list-delete.svg"></router-link>
+				<router-link to="#" class="px-2" v-on:click.native="openEditProductModal(id)"><img src="../../../images/list-edit.svg"></router-link>
+				<router-link to="#" class="px-2"><img src="../../../images/list-delete.svg"></router-link>
 			</td>
 		</tr>
 		<add-product slot="modal"></add-product>
+		<edit-product slot="modal"></edit-product>
 	</list-template>
 </template>
 
@@ -28,6 +29,7 @@
 	import { mapGetters } from 'vuex';
 	import ListTemplate from '../../templates/ListTemplate';
 	import AddProduct from './AddProduct';
+	import EditProduct from './EditProduct';
 
 	export default {
 
@@ -44,6 +46,12 @@
 		methods: {
 			openAddProductModal() {
 				this.$modal.show('modal-add-product')
+			},
+
+			openEditProductModal(id) {
+				this.$modal.show('modal-edit-product', {
+					id
+				})
 			}
 		},
 
@@ -55,7 +63,8 @@
 
 		components: {
 			'list-template': ListTemplate,
-			'add-product': AddProduct
+			'add-product': AddProduct,
+			'edit-product': EditProduct
 		},
 
 		data() {

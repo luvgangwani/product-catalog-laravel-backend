@@ -40,7 +40,7 @@ class ProductsController extends Controller
     {
         return response()->json(array(
             'success' => true,
-            'data' => Products::find($request->id)
+            'data' => new ProductsResource(Products::find($request->id))
         ), 200);
     }
 
@@ -103,10 +103,17 @@ class ProductsController extends Controller
     {
         $returnResponse = null;
 
-        $product->product_name = $request->product_name;
-        $product->product_description = $request->product_description;
-        $product->category_id = $request->category_id;
-        $product->product_price = $request->product_price;
+        $validProduct = $request->validate([
+            'product_name' => 'required',
+            'product_description' => 'required',
+            'category_id' => 'required',
+            'product_price' => 'required'
+        ]);
+
+        $product->product_name = $validProduct['product_name'];
+        $product->product_description = $validProduct['product_description'];
+        $product->category_id = $validProduct['category_id'];
+        $product->product_price = $validProduct['product_price'];
 
         try {
             if ($product->save()) {

@@ -38,8 +38,8 @@ export const store = new Vuex.Store({
 
 			state.user = user;
 			state.error = null; // remove any error messages
+			state.successMessage = message;
 			state.isLoading = false; // stop loading
-			state.successMessage = message
 
 			localStorage.setItem('accessToken', access_token);
 		},
@@ -47,28 +47,25 @@ export const store = new Vuex.Store({
 		getUserByUserId: (state, { data, message }) => {
 			state.user = data;
 			state.error = null;
+			state.successMessage = message;
 			state.isLoading = false;
-			state.successMessage = message
 		},
 
 		addCategory: (state, { data, message }) => {
-			state.isLoading = false;
-			state.categories = [...state.categories, data]
-			state.successMessage = message
+			state.categories = [...state.categories, data];
+			state.successMessage = message;
 			state.error = null;
+			state.isLoading = false;
 		},
 
 		editCategory: (state, { data, message }) => {
 			state.category = data;
 
 
-			state.categories = _.orderBy(
-				[
-					...state.categories.filter(eachCategory => eachCategory.id != data.id), data
-				]
-				, [ eachCategory => eachCategory.category_name ]
-				, ['asc']
-			);
+			state.categories = [
+				...state.categories.filter(eachCategory => eachCategory.id != data.id),
+				data
+			];
 
 			state.successMessage = message;
 			state.error = null;
@@ -77,20 +74,26 @@ export const store = new Vuex.Store({
 		getAllCategories: (state, { data }) => {
 
 			state.categories = data;
-			state.isLoading = false;
 			state.error = null;
+			state.isLoading = false;
 
 		},
 
 		getCategoryById: (state, { data }) => {
 			state.category = data;
-			state.isLoading = false;
 			state.error = null;
+			state.isLoading = false;
 		},
 
 		getAllProducts: (state, { data }) => {
 			state.products = data;
+			state.error = null;
 			state.isLoading = false;
+		},
+
+		getProductById: (state, { data }) => {
+			state.product = data;
+			state.error = null;
 		},
 
 		addProduct: (state, { data, message }) => {
@@ -101,9 +104,19 @@ export const store = new Vuex.Store({
 				],
 				[ product => product.product_name],
 				[ 'asc' ]
-			);
+			); // remove order by
 			state.successMessage = message;
 			state.isLoading = false;
+		},
+
+		editProduct: (state, { data, message }) => {
+			state.product = data,
+			state.products = [
+				...state.products.filter(product => product.id != data.id),
+				data
+			];
+			state.successMessage = message;
+			state.error = null;
 		},
 
 		logout:(state) => {
@@ -302,6 +315,29 @@ export const store = new Vuex.Store({
 					})
 		},
 
+		getProductById: async (context, payload) => {
+
+			await axios
+					.post(
+						`${API_BASE_URL}/products/getProductById`,
+						{
+							id: payload
+						},
+						{
+							headers: {
+								'Accept': 'application/json',
+								'Authorization': `Bearer ${ localStorage.getItem('accessToken') }`
+							}
+						}
+					)
+					.then(response => {
+						context.commit('getProductById', response.data);
+					})
+					.catch(error => {
+						context.commit('error', error);
+					});
+		},
+
 		addProduct: async (context, { product_name, product_description, category_id, product_price }) => {
 			
 			context.state.isLoading = true;
@@ -328,6 +364,31 @@ export const store = new Vuex.Store({
 					.catch(error => {
 						context.commit('error', error);
 					})
+		},
+
+		editProduct: async (context, { id, product_name, product_description, category_id, product_price }) => {
+			await axios
+					.put(
+						`${API_BASE_URL}/products/update/${id}`,
+						{
+							product_name,
+							product_description,
+							category_id,
+							product_price
+						},
+						{
+							headers: {
+								'Accept': 'application/json',
+								'Authorization': `Bearer ${ localStorage.getItem('accessToken') }`
+							}
+						}
+					)
+					.then(response => {
+						context.commit('editProduct', response.data);
+					})
+					.catch(error => {
+						context.commit('error', error);
+					});
 		},
 
 		logout: async (context) => {
