@@ -16,16 +16,17 @@ export const store = new Vuex.Store({
 		categories: null,
 		category: null,
 		products: null,
-		error: null,
+		product: null,
 		successMessage: null,
-
+		error: null,
 	},
 
 	getters: {
 		user: (state) => state.user,
 		categories: (state) => _.orderBy(state.categories, [ eachCategory => eachCategory.category_name ], ['asc']),
 		category: (state) => state.category,
-		products: (state) => state.products,
+		products: (state) => _.orderBy(state.products, [ product => product.product_name ], [ 'asc' ]),
+		product: (state) => state.product,
 		error: (state) => state.error,
 		isLoading: (state) => state.isLoading,
 		successMessage: (state) => state.successMessage
@@ -89,6 +90,19 @@ export const store = new Vuex.Store({
 
 		getAllProducts: (state, { data }) => {
 			state.products = data;
+			state.isLoading = false;
+		},
+
+		addProduct: (state, { data, message }) => {
+
+			state.products = _.orderBy(
+				[
+					...state.products, data
+				],
+				[ product => product.product_name],
+				[ 'asc' ]
+			);
+			state.successMessage = message;
 			state.isLoading = false;
 		},
 
@@ -191,26 +205,6 @@ export const store = new Vuex.Store({
 					})
 		},
 
-		getAllProducts: async (context) => {
-			context.state.isLoading = true;
-
-			await axios
-					.get(
-						`${API_BASE_URL}/products`,
-						{
-							headers: {
-								'Accept': 'application/json'
-							}
-						}
-					)
-					.then(response => {
-						context.commit('getAllProducts', response.data);
-					})
-					.catch(error => {
-						context.commit('error', error)
-					})
-		},
-
 		addCategory: async (context, { category_name, category_url, parent_id}) => {
 
 			context.state.isLoading = true;
@@ -285,6 +279,55 @@ export const store = new Vuex.Store({
 						context.commit('error', error)
 					})
 
+		},
+
+		getAllProducts: async (context) => {
+			context.state.isLoading = true;
+
+			await axios
+					.get(
+						`${API_BASE_URL}/products`,
+						{
+							headers: {
+								'Accept': 'application/json',
+								'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+							}
+						}
+					)
+					.then(response => {
+						context.commit('getAllProducts', response.data);
+					})
+					.catch(error => {
+						context.commit('error', error)
+					})
+		},
+
+		addProduct: async (context, { product_name, product_description, category_id, product_price }) => {
+			
+			context.state.isLoading = true;
+
+			await axios
+					.post(
+						`${API_BASE_URL}/products/store`,
+						{
+							product_name,
+							product_description,
+							category_id,
+							product_price
+						},
+						{
+							headers: {
+								'Accept': 'application/json',
+								'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+							}
+						}
+					)
+					.then(response => {
+						context.commit('addProduct', response.data);
+					})
+					.catch(error => {
+						context.commit('error', error);
+					})
 		},
 
 		logout: async (context) => {

@@ -58,11 +58,21 @@ class ProductsController extends Controller
 
         $returnResponse = null;
 
+        $validProduct = $request->validate(
+            [
+                'product_name' => 'required',
+                'product_description' => 'required',
+                'category_id' => 'required',
+                'product_price' => 'required'
+            ]
+
+        );
+
         $newProduct->admin_id = auth()->user()->id; // the admin who added the new product
-        $newProduct->product_name = $request->product_name;
-        $newProduct->product_description = $request->product_description;
-        $newProduct->category_id = $request->category_id;
-        $newProduct->product_price = $request->product_price;
+        $newProduct->product_name = $validProduct['product_name'];
+        $newProduct->product_description = $validProduct['product_description'];
+        $newProduct->category_id = $validProduct['category_id'];
+        $newProduct->product_price = $validProduct['product_price'];
 
         try {
             if ($newProduct->save()) {

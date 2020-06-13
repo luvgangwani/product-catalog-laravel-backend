@@ -73,7 +73,9 @@ Route::prefix('v1')->namespace('Api\V1')->group(function() {
 
     Route::prefix('products')->group(function() {
 
-        Route::get('/', 'ProductsController@index')->name('products.index');
+        Route::get('/', 'ProductsController@index')
+        ->middleware('auth:api', 'check.user.role:'.config('enums.role.ADMIN'))
+        ->name('products.index');
 
         Route::post('/getProductById', 'ProductsController@getProductById')->name('products.getProductById');
 

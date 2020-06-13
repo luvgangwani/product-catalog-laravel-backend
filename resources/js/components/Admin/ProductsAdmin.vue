@@ -2,7 +2,7 @@
 	<list-template>
 		<div slot="list-header">Products Dashboard</div>
 		<!-- Add Icon -->
-		<router-link to="/admin/products" class="float-right p-2" slot="list-template-add">
+		<router-link to="#" class="float-right p-2" slot="list-template-add" v-on:click.native="openAddProductModal()">
 			<img src="../../../images/list-template-home-plus-icon.svg" class="img-fluid" alt="Add product">
 		</router-link>
 		<!-- Table Column Headers -->
@@ -19,6 +19,7 @@
 				<router-link v-bind:to="`/products/${id}`" class="px-2"><img src="../../../images/list-delete.svg"></router-link>
 			</td>
 		</tr>
+		<add-product slot="modal"></add-product>
 	</list-template>
 </template>
 
@@ -26,6 +27,7 @@
 	
 	import { mapGetters } from 'vuex';
 	import ListTemplate from '../../templates/ListTemplate';
+	import AddProduct from './AddProduct';
 
 	export default {
 
@@ -39,6 +41,12 @@
 			await this.$store.dispatch('getAllProducts');
 		},
 
+		methods: {
+			openAddProductModal() {
+				this.$modal.show('modal-add-product')
+			}
+		},
+
 		computed: {
 			...mapGetters([
 				'products'
@@ -46,7 +54,8 @@
 		},
 
 		components: {
-			'list-template': ListTemplate
+			'list-template': ListTemplate,
+			'add-product': AddProduct
 		},
 
 		data() {
