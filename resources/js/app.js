@@ -14,6 +14,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueToast from 'vue-toast-notification';
 import VModal from 'vue-js-modal';
+import wysiwyg from 'vue-wysiwyg';
 import 'vue-toast-notification/dist/theme-default.css';
 
 import routes from './routes';
@@ -32,6 +33,13 @@ Vue.use(VModal, {
 
 Vue.use(VueToast, {
 	position: 'bottom'
+});
+
+Vue.use(wysiwyg, {
+	hideModules: {
+		removeFormat: true,
+		image: true
+	}
 });
 
 const router = new VueRouter({

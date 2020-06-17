@@ -1,5 +1,5 @@
 <template>
-    <modal name="modal-add-product" height="auto" v-bind:adaptive=true>
+    <modal name="modal-add-product" height="auto" v-bind:adaptive=true v-bind:scrollable=true>
         <div class="p-5 modal-add-product-style">
             <div class="h4 text-center">Add New Product</div>
             <form class="mt-3">
@@ -9,7 +9,7 @@
                 </div>
                 <div class="form-group">
                     <label for="product_description" class="required">Product Description</label>
-                    <textarea class="form-control" v-model="product.product_description"></textarea>
+                    <wysiwyg v-model="product.product_description"></wysiwyg>
                 </div>
                 <div class="form-group">
                     <label for="category_id">Category</label>

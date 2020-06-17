@@ -1,5 +1,5 @@
 <template>
-    <modal name="modal-edit-product" height="auto" v-bind:adaptive=true v-on:before-open="beforeOpen">
+    <modal name="modal-edit-product" height="auto" v-bind:adaptive=true v-on:before-open="beforeOpen" v-bind:scrollable=true>
         <div class="p-5 modal-edit-product-style">
             <div class="h4 text-center">Edit Product</div>
             <form class="mt-3">
@@ -9,7 +9,7 @@
                 </div>
                 <div class="form-group">
                     <label for="product_description" class="required">Product Description</label>
-                    <textarea class="form-control" v-model="singleProduct.product_description"></textarea>
+                    <wysiwyg v-model="singleProduct.product_description"></wysiwyg>
                 </div>
                 <div class="form-group">
                     <label for="category_id">Category</label>
